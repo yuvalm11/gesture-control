@@ -81,12 +81,14 @@ void sendPhoto() {
 }
 
 void loop() {
-  delay(5000);
+  delay(10000);
   if (camera_sign) {
     while ( imageCount <= 50 ) {
-      delay(3000);
-      sendPhoto();
-      imageCount++
+      if ( millis() - lastCaptureTime > 3000 ) {
+       sendPhoto();
+       lastCaptureTime = millis();
+       imageCount++;
+      }
     }
   }
   while (true) { delay(100); }
